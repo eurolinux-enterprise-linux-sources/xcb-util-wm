@@ -1,5 +1,5 @@
 Name:		xcb-util-wm
-Version:	0.3.9
+Version:	0.4.1
 Release:	5%{?dist}
 Summary:	Client and window-manager helper library on top of libxcb
 Group:		System Environment/Libraries
@@ -30,7 +30,7 @@ Development files for xcb-util-wm.
 
 
 %build
-%configure --with-pic --disable-static
+%configure --with-pic --disable-static --disable-silent-rules
 make %{?_smp_mflags}
 
 
@@ -50,7 +50,7 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %files
-%doc README
+%doc README COPYING
 %{_libdir}/*.so.*
 
 
@@ -62,11 +62,20 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
-* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.3.9-5
-- Mass rebuild 2014-01-24
+* Wed Oct 22 2014 Thomas Moschny <thomas.moschny@gmx.de> - 0.4.1-5
+- Include COPYING.
 
-* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.3.9-4
-- Mass rebuild 2013-12-27
+* Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
+* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Thu Apr 17 2014 Thomas Moschny <thomas.moschny@gmx.de> - 0.4.1-2
+- Disable silent build.
+
+* Wed Apr 16 2014 Hans de Goede <hdegoede@redhat.com> - 0.4.1-1
+- Update to 0.4.1 (rhbz#1059674)
 
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.3.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild

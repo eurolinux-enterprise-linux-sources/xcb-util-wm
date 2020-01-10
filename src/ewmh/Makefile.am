@@ -1,25 +1,23 @@
-MAINTAINERCLEANFILES = Makefile.in
 
 lib_LTLIBRARIES = libxcb-ewmh.la
 
-xcbinclude_HEADERS = xcb_ewmh.h
+nodist_xcbinclude_HEADERS = xcb_ewmh.h
 
-AM_CFLAGS = $(CWARNFLAGS)
+AM_CFLAGS = $(BASE_CFLAGS)
+AM_CPPFLAGS = $(XCB_CFLAGS)
 
-libxcb_ewmh_la_SOURCES = ewmh.c ewmh.c.m4 atomlist.m4 xcb_ewmh.h.m4
-libxcb_ewmh_la_CPPFLAGS = $(XCB_CFLAGS) $(XPROTO_CFLAGS)
-libxcb_ewmh_la_LIBADD = $(XCB_LIBS) $(XPROTO_LIBS)
+libxcb_ewmh_la_SOURCES = ewmh.c.m4 atomlist.m4 xcb_ewmh.h.m4
+nodist_libxcb_ewmh_la_SOURCES = ewmh.c
+libxcb_ewmh_la_LIBADD = $(XCB_LIBS)
 libxcb_ewmh_la_LDFLAGS = -version-info 2:0:0 -no-undefined
 
 pkgconfig_DATA = xcb-ewmh.pc
-
-EXTRA_DIST = xcb-ewmh.pc.in
 
 BUILT_SOURCES = ewmh.c xcb_ewmh.h
 CLEANFILES = $(BUILT_SOURCES)
 
 ewmh.c: ewmh.c.m4 atomlist.m4
-	$(M4) -I$(srcdir) $< >$@
+	$(AM_V_GEN)$(M4) -I$(srcdir) $< >$@
 
 xcb_ewmh.h: xcb_ewmh.h.m4 atomlist.m4
-	$(M4) -I$(srcdir) $< >$@
+	$(AM_V_GEN)$(M4) -I$(srcdir) $< >$@
