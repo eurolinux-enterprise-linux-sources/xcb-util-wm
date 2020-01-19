@@ -26,6 +26,11 @@
  * prior written authorization from the authors.
  */
 
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include "xcb_ewmh.h"
 
 #include <string.h>
@@ -38,9 +43,7 @@
 #include <xcb/xcb.h>
 #include <xcb/xproto.h>
 
-#ifdef HAVE_SYS_TYPES_H
-# include <sys/types.h>
-#endif
+#include <sys/types.h>
 
 #define ssizeof(foo)            (ssize_t)sizeof(foo)
 #define countof(foo)            (ssizeof(foo) / ssizeof(foo[0]))
@@ -662,7 +665,8 @@ xcb_ewmh_request_change_desktop_geometry(xcb_ewmh_connection_t *ewmh,
 {
   const uint32_t data[] = { new_width, new_height };
 
-  return xcb_ewmh_send_client_message(ewmh->connection, XCB_NONE,
+  return xcb_ewmh_send_client_message(ewmh->connection,
+                                      ewmh->screens[screen_nbr]->root,
                                       ewmh->screens[screen_nbr]->root,
                                       ewmh->_NET_DESKTOP_GEOMETRY,
                                       sizeof(data), data);
@@ -713,7 +717,8 @@ xcb_ewmh_request_change_desktop_viewport(xcb_ewmh_connection_t *ewmh,
 {
   const uint32_t data[] = { x, y };
 
-  return xcb_ewmh_send_client_message(ewmh->connection, XCB_NONE,
+  return xcb_ewmh_send_client_message(ewmh->connection,
+                                      ewmh->screens[screen_nbr]->root,
                                       ewmh->screens[screen_nbr]->root,
                                       ewmh->_NET_DESKTOP_VIEWPORT,
                                       sizeof(data), data);
@@ -733,7 +738,8 @@ xcb_ewmh_request_change_current_desktop(xcb_ewmh_connection_t *ewmh,
 {
   const uint32_t data[] = { new_desktop, timestamp };
 
-  return xcb_ewmh_send_client_message(ewmh->connection, XCB_NONE,
+  return xcb_ewmh_send_client_message(ewmh->connection,
+                                      ewmh->screens[screen_nbr]->root,
                                       ewmh->screens[screen_nbr]->root,
                                       ewmh->_NET_CURRENT_DESKTOP,
                                       sizeof(data), data);
